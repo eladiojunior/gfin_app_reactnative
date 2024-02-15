@@ -1,4 +1,7 @@
 {
   "name": "gfin_app_reactnative",
-  "displayName": "AppGFin"
+  "displayName": "AppGFin",
+  "assetBundlePatterns": [
+    "**/*"
+  ]
 }
