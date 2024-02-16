@@ -2,7 +2,7 @@ import React from "react";
 import { Dimensions, StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import Colors from "../constants/Colors";
 
-const Button = (props) => {
+const Button = (props: any) => {
     return (
         <View style={styles.container}>
             <TouchableHighlight onPress={props.onClick}>

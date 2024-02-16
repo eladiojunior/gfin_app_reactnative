@@ -11,11 +11,20 @@ export default {
   textColorDropboxSelected: '#FFFFFF',
   bgColorDropboxSelected: '#13596F',
   borderColorDropbox: '#000000',
-  iconColor: 'gray',
 
   bgColorTextBox: '#FDF7F7',
   textColorTextBox: '#000000',
-  bgColorError: 'red',
+  borderColorTextBox: '#13596F',
+
+  bgColorCheckboxSelected: '#FFFFFF',
+  borderColorCheckbox: '#000000',
+  textColorCheckbox: '#FFFFFF',
+
+  bgColorRadioboxSelected: '#FFFFFF',
+  borderColorRadiobox: '#FFFFFF',
+  textColorRadiobox: '#FFFFFF',
+
+  bgColorError: '#F80000',
   textColorError: '#FFFFFF',
   bgColorWarning: '#EAEB5E',
   textColorWarning: '#666804',

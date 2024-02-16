@@ -1,20 +1,18 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { FlatList, I18nManager, Image, Modal, StyleSheet, Text, TouchableHighlight, TouchableWithoutFeedback, View, ViewStyle } from "react-native";
+import { FlatList, I18nManager, Image, Modal, StyleSheet, Text, TouchableHighlight, TouchableWithoutFeedback, View } from "react-native";
 import Colors from "../constants/Colors";
-import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
 
 const img_down = require('../assets/images/down.png');
-
 const _ = require('lodash');
 
-const Dropdown = (props) => {
+const Dropdown = (props: any) => {
   const {
     data = [],
     labelField = "label",
     valueField = "value",
     valueItem = "",
     placeholder = 'Selecione...',
-    width = 'auto',
+    width = 200,
     height = 35,
     onChange = null,
     dropdownPosition = true,
