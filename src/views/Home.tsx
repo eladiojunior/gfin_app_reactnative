@@ -12,6 +12,7 @@ import Dropdown from '../componentes/Dropdown';
 import { AlingsTextbox, TextBox, TypesTextbox } from '../componentes/TextBox';
 import CheckBox from '../componentes/CheckBox';
 import { RadioBoxGroup, OrientationItens } from '../componentes/RadioBoxGroup';
+import ListaContas from '../componentes/app/ListaContas';
 
 const dataDropbox = [
   { label: 'janeiro/2024', value: '01/01/2024' },
@@ -32,13 +33,22 @@ const dataRadio = [
   { text: 'Testando Radio 02', id: '02' },
   { text: 'Testando Radio 03', id: '03' },
 ];
+const listaContas = [
+  { id: 1, descricao: 'Mensalidade do Marista 01/2024', valor: 1501.91, tipo: 'D' },
+  { id: 2, descricao: 'Salario', valor: 1.91, tipo: 'R' },
+  { id: 3, descricao: 'Mensalidade UBT', valor: 350.00, tipo: 'D' },
+  { id: 4, descricao: 'Fatura da IO', valor: 352.88, tipo: 'd' },
+  { id: 5, descricao: 'Boleto do Condomínio 01/2024', valor: 1350.00, tipo: 'D' },
+  { id: 6, descricao: 'Salario CASSI', valor: 15252.91, tipo: 'r' },
+];
 export default function Home() {
-  const [text, setText] = useState('');
 
   return (
     <SafeAreaView style={styles.container}>
 
       <Text style={styles.title}>Home</Text>
+
+      <ListaContas height={150} data={listaContas} onClick={(item:any) => { console.log(item) }}/>
 
       <CheckBox onSelected={(value: any) => console.log(value)} label="Teste" />
 
@@ -83,7 +93,7 @@ export default function Home() {
         alingText={AlingsTextbox.Right}
         width={250}
         onChangeText={(text: string) => console.log(text)} />
-
+      
     </SafeAreaView>
   );
 }

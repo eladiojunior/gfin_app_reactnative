@@ -24,14 +24,19 @@ export default {
   borderColorRadiobox: '#FFFFFF',
   textColorRadiobox: '#FFFFFF',
 
+  textColorLista: '#000000',
+  borderColorItemLista: '#000000',
+  bgColorLista: '#FFFFFF',
+  bgColorDespesa: '#EFCBCB',
+  textColorDespesa: '#000000',
+  bgColorReceita: '#BBE5F2',
+  textColorReceita: '#000000',
+
   bgColorError: '#F80000',
   textColorError: '#FFFFFF',
   bgColorWarning: '#EAEB5E',
   textColorWarning: '#666804',
   bgColorNotice: '#13596F',
   textColorNotice: '#FFFFFF',
-  bgColorDespesa: '#EFCBCB',
-  textColorDespesa: '#000000',
-  bgColorReceita: '#BBE5F2',
-  textColorReceita: '#000000',
+  
 };
