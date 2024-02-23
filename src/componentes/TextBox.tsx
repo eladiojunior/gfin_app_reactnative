@@ -40,12 +40,12 @@ const TextBox = (props: any) => {
         autoComplete = checkAutoComplete(props.autoComplete),
         value = checkValue(props.value),
         alingText = AlingsTextbox.Left,
-        width = 150
+        width = 150,
+        style = styles.input
     } = props;
 
     const onChangeText = (value: string) => {
         if (props.onChangeText) {
-            console.log(value);
             props.onChangeText(value);
         }
     };
@@ -63,7 +63,7 @@ const TextBox = (props: any) => {
     return (
         <View style={styles.container}>
             <TextInput
-                style={[styles.input, {textAlign: alingText, minWidth: 50, width: width }]}
+                style={[styles.input, {textAlign: alingText, minWidth: 50, width: width }, style]}
                 secureTextEntry={(typeTextbox===TypesTextbox.Password)}
                 keyboardType={(typeTextbox===TypesTextbox.Password ? TypesTextbox.Alfanumber : props.typeTextbox)}
                 placeholder={props.placeHolder}

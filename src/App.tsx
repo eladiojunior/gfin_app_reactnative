@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import SplashScreen from 'react-native-splash-screen';
-import Home from './views/Home';
+import NovaNatureza from './views/NovaNatureza';
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
@@ -29,7 +29,7 @@ function App() {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <Home/>
+      <NovaNatureza/>
     </SafeAreaView>
   );
 }

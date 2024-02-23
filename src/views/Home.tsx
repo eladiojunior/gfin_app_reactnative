@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import {
+  KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -44,7 +46,10 @@ const listaContas = [
 export default function Home() {
 
   return (
-    <SafeAreaView style={styles.container}>
+    
+    <KeyboardAvoidingView 
+      behavior={Platform.OS  === 'ios' ? 'padding' : 'height'} 
+      style={styles.container}>
 
       <Text style={styles.title}>Home</Text>
 
@@ -94,7 +99,7 @@ export default function Home() {
         width={250}
         onChangeText={(text: string) => console.log(text)} />
       
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({

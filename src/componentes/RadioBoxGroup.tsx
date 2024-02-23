@@ -17,8 +17,8 @@ const dataDefault = [
 const RadioBoxGroup = (props: any) => {
     const {
         data = dataDefault,
-        labelField = (props.labelField && props.labelField === '' ? "label" : props.labelField),
-        valueField = (props.valueField && props.valueField === '' ? "value" : props.valueField),
+        labelField = (props.labelField ? props.labelField : "label"),
+        valueField = (props.valueField ? props.valueField : "value"),
         valueItem = "",
         orientationItens = OrientationItens.Horizontal
     } = props;
