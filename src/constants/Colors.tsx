@@ -27,7 +27,7 @@ export default {
 
   textColorLista: '#000000',
   borderColorItemLista: '#000000',
-  bgColorLista: '#FFFFFF',
+  bgColorLista: '#168CA6',
   bgColorDespesa: '#EFCBCB',
   textColorDespesa: '#000000',
   bgColorReceita: '#BBE5F2',

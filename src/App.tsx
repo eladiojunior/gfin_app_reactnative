@@ -15,6 +15,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import SplashScreen from 'react-native-splash-screen';
 import HomeView from './views/HomeView';
 import CadastroView from './views/CadastroView';
+import NaturezaView from './views/NaturezaView';
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
@@ -31,7 +32,7 @@ function App() {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <CadastroView/>
+      <NaturezaView/>
     </SafeAreaView>
   );
 }

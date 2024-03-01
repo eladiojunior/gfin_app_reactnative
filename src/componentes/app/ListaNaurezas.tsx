@@ -80,8 +80,8 @@ const ListaNaurezas = (props: any) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: Colors.bgColorLista,
+        flex: 1
     },
     item_lista_d: {
         backgroundColor: Colors.bgColorDespesa,
