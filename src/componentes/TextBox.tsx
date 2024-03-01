@@ -40,7 +40,7 @@ const TextBox = (props: any) => {
         autoComplete = checkAutoComplete(props.autoComplete),
         value = checkValue(props.value),
         alingText = AlingsTextbox.Left,
-        width = 150,
+        width = "100%",
         style = styles.input
     } = props;
 
@@ -75,7 +75,6 @@ const TextBox = (props: any) => {
 };
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         justifyContent: 'center',
     },
     input: {

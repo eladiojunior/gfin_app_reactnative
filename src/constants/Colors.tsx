@@ -1,7 +1,8 @@
 
 export default {
   bgColorApp: '#168CA6',
-  
+  textColorTitulo: '#ffffff',
+
   bgColorButton: '#13596F',
   textColorButton: '#FFFFFF',
   borderColorButton: '#000000',

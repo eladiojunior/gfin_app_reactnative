@@ -1,0 +1,64 @@
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import ViewBase from "./ViewBase";
+import Colors from "../constants/Colors";
+import Button from "../componentes/Button";
+export default function HomeView() {
+    return (
+        <View style={styles.container}>
+            <ViewBase>
+                <View style={styles.content}>
+                    <Text style={[styles.text, styles.title]}>Boas-vindas!</Text>
+                    <Text style={styles.text}>Que tal manter suas finanças controladas de forma simples e fácil? Aqui você consegue.</Text>
+                    <View style={styles.content_buttons}>
+                        <Button label="Login" onClick={() => { console.log("Logar") }}></Button>
+                        <Button label="Cadastrar" onClick={() => { console.log("Cadastrar") }}></Button>
+                    </View>
+                </View>
+                <View style={styles.content_versao_app}>
+                    <Text style={styles.versao_app}>Versão 1.1.0</Text>
+                </View>
+            </ViewBase>
+        </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: Colors.bgColorApp,
+        flex: 1,
+    },
+    content: {
+        paddingLeft: 56,
+        paddingRight: 56,
+        paddingTop: 200,
+        gap: 20,
+    },
+    content_buttons: {
+        paddingTop: 50,
+        gap: 20,
+    },
+    text: {
+        color: "white",
+        textAlign: 'center',
+        fontSize: 18,
+        fontWeight: '400',
+    },
+    title: {
+        fontSize: 30,
+        fontWeight: "bold",
+        color: Colors.textColorTitulo
+    },
+    content_versao_app: {
+        position: "absolute",
+        bottom: 0,
+        marginTop: 10,
+        padding: 10,
+        width: "100%",
+    },
+    versao_app: {
+        color: Colors.textColorTitulo,
+        fontSize: 16,
+        textAlign: "center"
+    }
+});

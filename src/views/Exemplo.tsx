@@ -43,7 +43,7 @@ const listaContas = [
   { id: 5, descricao: 'Boleto do Condomínio 01/2024', valor: 1350.00, tipo: 'D' },
   { id: 6, descricao: 'Salario CASSI', valor: 15252.91, tipo: 'r' },
 ];
-export default function Home() {
+export default function Exemplo() {
 
   return (
     
@@ -51,7 +51,7 @@ export default function Home() {
       behavior={Platform.OS  === 'ios' ? 'padding' : 'height'} 
       style={styles.container}>
 
-      <Text style={styles.title}>Home</Text>
+      <Text style={styles.title}>Exemplos</Text>
 
       <ListaContas height={150} data={listaContas} onClick={(item:any) => { console.log(item) }}/>
 

@@ -13,15 +13,17 @@ import {
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import SplashScreen from 'react-native-splash-screen';
-import NovaNatureza from './views/NovaNatureza';
+import HomeView from './views/HomeView';
+import CadastroView from './views/CadastroView';
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
   useEffect(() => {
-    if (Platform.OS === 'android')
+    if (Platform.OS === 'android') {
       SplashScreen.hide();
+    }
   }, []);
   return (
     <SafeAreaView style={[styles.container, backgroundStyle]}>
@@ -29,7 +31,7 @@ function App() {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <NovaNatureza/>
+      <CadastroView/>
     </SafeAreaView>
   );
 }
