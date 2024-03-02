@@ -1,9 +1,12 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import ViewBase from "./ViewBase";
+import ViewsName from "../constants/ViewsName";
 import Colors from "../constants/Colors";
 import Button from "../componentes/Button";
-export default function HomeView() {
+export default function HomeView({navigation}) {
+    const viewLogin = ViewsName.viewLogin;
+    const viewCadastro = ViewsName.viewCadastro;
     return (
         <View style={styles.container}>
             <ViewBase>
@@ -11,8 +14,8 @@ export default function HomeView() {
                     <Text style={[styles.text, styles.title]}>Boas-vindas!</Text>
                     <Text style={styles.text}>Que tal manter suas finanças controladas de forma simples e fácil? Aqui você consegue.</Text>
                     <View style={styles.content_buttons}>
-                        <Button label="Login" onClick={() => { console.log("Logar") }}></Button>
-                        <Button label="Cadastrar" onClick={() => { console.log("Cadastrar") }}></Button>
+                        <Button label="Login" onClick={() => navigation.navigate(viewLogin) }></Button>
+                        <Button label="Cadastrar" onClick={() => navigation.navigate(viewCadastro) }></Button>
                     </View>
                 </View>
                 <View style={styles.content_versao_app}>

@@ -16,6 +16,7 @@ import SplashScreen from 'react-native-splash-screen';
 import HomeView from './views/HomeView';
 import CadastroView from './views/CadastroView';
 import NaturezaView from './views/NaturezaView';
+import Navigation from './componentes/rotas/Navigation';
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
@@ -32,7 +33,7 @@ function App() {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <NaturezaView/>
+      <Navigation/>
     </SafeAreaView>
   );
 }

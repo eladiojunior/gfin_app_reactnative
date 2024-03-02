@@ -2,13 +2,12 @@ import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
-  Image,
   Text,
   TextInput,
   TouchableOpacity,
 } from 'react-native';
 
-export default function Login() {
+export default function LoginView() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   return (
