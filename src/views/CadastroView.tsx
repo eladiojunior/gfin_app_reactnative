@@ -4,7 +4,8 @@ import ViewBase from "./ViewBase";
 import Colors from "../constants/Colors";
 import Button from "../componentes/Button";
 import { TextBox, TypesTextbox } from "../componentes/TextBox";
-export default function CadastroView() {
+
+const CadastroView = (navigation:any) => {
     const [nome, onChangeNome] = React.useState('');
     const [senha, onChangeSenha] = React.useState('');
     const [confirmaSenha, onChangeConfirmaSenha] = React.useState('');
@@ -30,6 +31,7 @@ export default function CadastroView() {
         </View>
     );
 }
+export default CadastroView;
 
 const styles = StyleSheet.create({
     container: {

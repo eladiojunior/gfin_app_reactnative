@@ -4,7 +4,7 @@ import ViewBase from "./ViewBase";
 import ViewsName from "../constants/ViewsName";
 import Colors from "../constants/Colors";
 import Button from "../componentes/Button";
-export default function HomeView({navigation}) {
+const HomeView = ({navigation}:any) => {
     const viewLogin = ViewsName.viewLogin;
     const viewCadastro = ViewsName.viewCadastro;
     return (
@@ -25,6 +25,7 @@ export default function HomeView({navigation}) {
         </View>
     );
 }
+export default HomeView;
 
 const styles = StyleSheet.create({
     container: {

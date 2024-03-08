@@ -1,7 +1,7 @@
 export default {
-  viewHome: 'HomeView',
-  viewLogin: 'LoginView',
-  viewCadastro: 'CadastroView',
+  viewHome: 'Home',
+  viewLogin: 'Login',
+  viewCadastro: 'Cadastro',
   viewNatureza: 'Natureza',
   viewDashboard: 'Dashboard',
   viewConfiguracao: 'Configuracao',

@@ -2,7 +2,6 @@
  * Tela inicial do aplicativo GFin
  * @author Eladio Júnior
  */
-
 import React, {useEffect} from 'react';
 import {
   StatusBar,
@@ -13,9 +12,6 @@ import {
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import SplashScreen from 'react-native-splash-screen';
-import HomeView from './views/HomeView';
-import CadastroView from './views/CadastroView';
-import NaturezaView from './views/NaturezaView';
 import Navigation from './componentes/rotas/Navigation';
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
