@@ -1,4 +1,8 @@
 export default {
+  
+  viewsTabs: 'Tabs',
+  viewsDrawers: 'Drawers',
+  
   viewHome: 'Home',
   viewLogin: 'Login',
   viewCadastro: 'Cadastro',
@@ -6,6 +10,11 @@ export default {
   viewDashboard: 'Dashboard',
   viewConfiguracao: 'Configuracao',
   viewPerfilUsuario: 'PerfilUsuario',
-  viewDespesaFixa: 'DespesaFixa',
-  viewDespesa: 'Despesa', 
+  viewSobreAplicacao: 'SobreAplicacao',
+
+  viewDespesas: 'Despesas', 
+  viewDespesasFixa: 'DespesasFixa',
+  viewReceitas: 'Receitas', 
+  viewReceitasFixa: 'ReceitasFixa',
+  
 };

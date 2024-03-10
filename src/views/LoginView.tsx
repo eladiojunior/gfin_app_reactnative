@@ -1,109 +1,61 @@
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
+import ViewBase from './ViewBase';
+import { TextBox, TypesTextbox } from '../componentes/TextBox';
+import Button from '../componentes/Button';
+import Colors from '../constants/Colors';
+import ViewsName from '../constants/ViewsName';
 
-export default function LoginView() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const LoginView = ({navigation}:any) => {
+  const [email, onChangeEmail] = React.useState('');
+  const [senha, onChangeSenha] = React.useState('');
+  const viewsDrawers = ViewsName.viewsDrawers;
+  const viewCadastro = ViewsName.viewCadastro;
   return (
-    <View style={styles.container}>
-      <View style={styles.logoView}></View>
-      <View style={styles.inputView}>
-        <TextInput
-          value={email}
-          style={styles.inputText}
-          placeholder="email@dominio.com.br"
-          placeholderTextColor="#AFAFAF"
-          onChangeText={email => setEmail(email)}
-        />
+      <View style={styles.container}>
+          <ViewBase>
+              <View style={styles.content}>
+                  <View>
+                      <Text style={[styles.text, styles.title]}>Login de Acesso</Text>
+                      <Text style={styles.text}>Para acessar, informe seu e-mail e senha!</Text>
+                  </View>
+                  <TextBox onChangeText={onChangeEmail} value={email} typeTextbox={TypesTextbox.Email} placeHolder='Seu e-mail de login'></TextBox>
+                  <TextBox onChangeText={onChangeSenha} value={senha} typeTextbox={TypesTextbox.Password} placeHolder='Sua senha de login'></TextBox>
+                  <View style={styles.content_buttons}>
+                      <Button label="Login" onClick={() => { navigation.navigate(viewsDrawers) }}></Button>
+                      <Button label="Cadastrar" onClick={() => navigation.navigate(viewCadastro) }></Button>
+                  </View>
+              </View>
+          </ViewBase>
       </View>
-      <View style={styles.inputView}>
-        <TextInput
-          value={password}
-          style={styles.inputText}
-          placeholder="Senha"
-          placeholderTextColor="#AFAFAF"
-          onChangeText={password => setPassword(password)}
-        />
-      </View>
-      <TouchableOpacity style={styles.loginBtn}>
-        <Text style={styles.loginText}>LOGIN</Text>
-      </TouchableOpacity>
-      <View style={styles.actions}>
-        <TouchableOpacity style={{marginHorizontal: 15}}>
-          <Text style={styles.forgot}>Forgot Password?</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.singUp}>Signup</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
   );
 }
+export default LoginView;
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#168CA6',
-    alignItems: 'center',
-    justifyContent: 'center',
+      backgroundColor: Colors.bgColorApp,
+      flex: 1,
   },
-  logo: {
-    fontWeight: 'bold',
-    fontSize: 50,
-    color: '#fb5b5a',
-    marginBottom: 25,
-    width: 250,
-    height: 100,
+  content: {
+      paddingLeft: 40,
+      paddingRight: 40,
+      paddingTop: 180,
+      gap: 16,
   },
-  forgot: {
-
+  content_buttons: {
+      paddingTop: 20,
+      gap: 20,
   },
-  inputView: {
-    width: '80%',
-    backgroundColor: '#EAEAEA',
-    borderRadius: 25,
-    height: 50,
-    marginBottom: 20,
-    justifyContent: 'center',
-    padding: 20,
+  text: {
+      color: "white",
+      textAlign: 'center',
+      fontSize: 16,
+      fontWeight: '400',
   },
-  inputText: {
-    height: 50,
-    color: '#777777',
-    fontWeight: '800',
-  },
-  singUp: {
-    color: '#39B54A',
-    fontWeight: '500',
-  },
-  loginBtn: {
-    width: '80%',
-    backgroundColor: '#39B54A',
-    borderRadius: 25,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 20,
-    marginBottom: 10,
-  },
-  loginText: {
-    color: '#ffffff',
-    fontWeight: '800',
-  },
-  actions: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-  },
-  logoView: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginBottom: 15,
-    marginTop: 0,
+  title: {
+      fontSize: 20,
+      fontWeight: "bold",
+      color: Colors.textColorTitulo
   },
 });

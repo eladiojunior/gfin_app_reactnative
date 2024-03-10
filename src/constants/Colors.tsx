@@ -3,6 +3,18 @@ export default {
   bgColorApp: '#168CA6',
   textColorTitulo: '#ffffff',
 
+  bgColorHeader: '#13596F',
+  borderColorHeader: '#000000',
+
+  bgColorDrawer: '#13596F',
+  textColorDrawer: '#FFFFFF',
+  bgColorDrawerActive: '#168CA6',
+
+  bgColorTabAtive: '#13596F',
+  textColorTabAtive: '#FFFFFF',
+  bgColorTabInative: '#FFFFFF',
+  textColorTabInative: '#000000',
+  
   bgColorButton: '#13596F',
   textColorButton: '#FFFFFF',
   borderColorButton: '#000000',

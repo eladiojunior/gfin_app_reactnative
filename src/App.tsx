@@ -2,6 +2,7 @@
  * Tela inicial do aplicativo GFin
  * @author Eladio Júnior
  */
+import 'react-native-gesture-handler';
 import React, {useEffect} from 'react';
 import {
   StatusBar,

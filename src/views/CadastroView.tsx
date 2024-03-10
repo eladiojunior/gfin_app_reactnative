@@ -4,12 +4,15 @@ import ViewBase from "./ViewBase";
 import Colors from "../constants/Colors";
 import Button from "../componentes/Button";
 import { TextBox, TypesTextbox } from "../componentes/TextBox";
+import ViewsName from "../constants/ViewsName";
 
-const CadastroView = (navigation:any) => {
+const CadastroView = ({navigation}:any) => {
     const [nome, onChangeNome] = React.useState('');
     const [senha, onChangeSenha] = React.useState('');
     const [confirmaSenha, onChangeConfirmaSenha] = React.useState('');
     const [email, onChangeEmail] = React.useState('');
+    
+    const viewLogin = ViewsName.viewLogin;
 
     return (
         <View style={styles.container}>
@@ -25,6 +28,7 @@ const CadastroView = (navigation:any) => {
                     <TextBox onChangeText={onChangeConfirmaSenha} value={confirmaSenha} typeTextbox={TypesTextbox.Password} placeHolder='Repita a senha criada acima'></TextBox>
                     <View style={styles.content_buttons}>
                         <Button label="Cadastrar" onClick={() => { console.log("Cadastrar") }}></Button>
+                        <Button label="Voltar" onClick={() => { navigation.navigate(viewLogin) }}></Button>
                     </View>
                 </View>
             </ViewBase>
