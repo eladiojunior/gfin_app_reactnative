@@ -15,6 +15,8 @@ import { AlingsTextbox, TextBox, TypesTextbox } from '../componentes/TextBox';
 import CheckBox from '../componentes/CheckBox';
 import { RadioBoxGroup, OrientationItens } from '../componentes/RadioBoxGroup';
 import ListaContas from '../componentes/app/ListaContas';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import ViewsName from '../constants/ViewsName';
 
 const dataDropbox = [
   { label: 'janeiro/2024', value: '01/01/2024' },
@@ -43,6 +45,7 @@ const listaContas = [
   { id: 5, descricao: 'Boleto do Condomínio 01/2024', valor: 1350.00, tipo: 'D' },
   { id: 6, descricao: 'Salario CASSI', valor: 15252.91, tipo: 'r' },
 ];
+
 export default function Exemplo() {
 
   return (

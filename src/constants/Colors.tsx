@@ -8,7 +8,13 @@ export default {
 
   bgColorDrawer: '#13596F',
   textColorDrawer: '#FFFFFF',
+  textColorDrawerActive: '#FFFFFF',
+  textColorDrawerInactive: '#FFFFFF',
   bgColorDrawerActive: '#168CA6',
+  bgColorDrawerUser: '#168CA6',
+  textColorDrawerUser: '#FFFFFF',
+  borderColorDrawerFooter: '#CCC',
+  textColorDrawerButton: '#FFFFFF',
 
   bgColorTabAtive: '#13596F',
   textColorTabAtive: '#FFFFFF',
