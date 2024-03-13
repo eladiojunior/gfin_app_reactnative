@@ -1,5 +1,5 @@
 /**
- * Tela inicial do aplicativo GFin
+ * Start aplicativo GFin
  * @author Eladio Júnior
  */
 import 'react-native-gesture-handler';
