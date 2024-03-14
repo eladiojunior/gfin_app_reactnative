@@ -8,25 +8,25 @@ const database_version = '1.0';
 const database_displayname = 'BD do Gerenciador Financeiro';
 const database_size = 200000; //Tamanho do banco de dados
 
-const AppSQLiteStorage = () => {
-    
+const AppSQLiteStorage = {
+
     /**
      * Realiza uma conexão com o banco de dados da aplicação.
      * @returns instância 'db' do banco de dados SQLite do GFin.
      */
-    const connectDb = () => {
+    connectDb: () => {
         let db;
         return new Promise((resolve:any) => {
             console.log('Checando a integridade do plugin...');
             SQLite.echoTest().then(() => {
                 SQLite.openDatabase(database_name, database_version, database_displayname, database_size).then((DB:any) => {
                     db = DB;
-                    db.executeSql(SqlGfin.select_Usuario).then(() => {
+                    db.executeSql(SqlGfin.selectVerified_Usuario).then(() => {
                         console.log("Banco de dados está pronto... Verificação concluída!");
                     }).catch(() => {
                         console.log("Banco de dados não está pronto... Criar estrutura de dados.");
                         db.transaction((tx: any) => {
-                            tx.executeSql(SqlGfin.create_tbUsuario);
+                            tx.executeSql(SqlGfin.create_Usuario);
                         }).then(() => {
                             console.log("Tabela: Tb_Usuarios criada com sucesso.");
                         }).catch((error:any) => {
@@ -40,15 +40,15 @@ const AppSQLiteStorage = () => {
             }).catch((error:any) => {
                 console.log("Erro [echoTest]: " + error);
             });
-            desconnectDb(db);
+            AppSQLiteStorage.desconnectDb(db);
         });
-    };
+    },
 
     /**
      * Desconecta o banco de dados do GFin.
      * @param db - instância do banco de dados.
      */
-    const desconnectDb = (db:any) => {
+    desconnectDb: (db:any) => {
         if (db) {
             console.log("Fechar conexão com o banco de dados.");
             db.close().then( (status:any) => {
@@ -59,7 +59,8 @@ const AppSQLiteStorage = () => {
         } else {
             console.log("Não existe conexão aberta.");
         }
-    };
+    },
+    
 
 }
 export default AppSQLiteStorage;

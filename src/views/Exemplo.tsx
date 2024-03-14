@@ -17,6 +17,7 @@ import { RadioBoxGroup, OrientationItens } from '../componentes/RadioBoxGroup';
 import ListaContas from '../componentes/app/ListaContas';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ViewsName from '../constants/ViewsName';
+import repoUsuario from '../storage/repositores/UsuarioRepository';
 
 const dataDropbox = [
   { label: 'janeiro/2024', value: '01/01/2024' },
@@ -47,16 +48,39 @@ const listaContas = [
 ];
 
 export default function Exemplo() {
+  const [listaUsuario, setListaUsuarios] = React.useState([]);
+  
+  const testeDbUsuarios = () => {
+
+    console.log("-------------------------");
+    repoUsuario.listar().then(lista => {
+      setListaUsuarios(lista);
+    });
+    console.log(listaUsuario);
+
+    //Registrar usuário
+    const usuario = new UsuarioModel(0, 'Eladio Júnior', 'eladiojunior@gmail.com', '123456', '654321', null, null);
+    repoUsuario.registrar(usuario);
+
+    console.log("-------------------------");
+    repoUsuario.listar().then(lista => {
+      setListaUsuarios(lista);
+    });
+    console.log(listaUsuario);
+
+    console.log("-------------------------");
+    
+  };
 
   return (
-    
-    <KeyboardAvoidingView 
-      behavior={Platform.OS  === 'ios' ? 'padding' : 'height'} 
+
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}>
 
       <Text style={styles.title}>Exemplos</Text>
 
-      <ListaContas height={150} data={listaContas} onClick={(item:any) => { console.log(item) }}/>
+      <ListaContas height={150} data={listaContas} onClick={(item: any) => { console.log(item) }} />
 
       <CheckBox onSelected={(value: any) => console.log(value)} label="Teste" />
 
@@ -101,7 +125,9 @@ export default function Exemplo() {
         alingText={AlingsTextbox.Right}
         width={250}
         onChangeText={(text: string) => console.log(text)} />
-      
+
+        <Button label="Teste Conectar Banco" onClick={() => { testeDbUsuarios() }} />
+
     </KeyboardAvoidingView>
   );
 }
