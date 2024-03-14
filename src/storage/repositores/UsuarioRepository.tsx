@@ -1,5 +1,5 @@
 import SqlGfin from "../../constants/SqlGfin";
-import storage from "../AppSQLiteStorage"
+import Storage from "../AppSQLiteStorage"
 
 import Usuario from '../models/UsuarioModel';
 
@@ -11,14 +11,14 @@ const UsuarioRepository = {
      */
     registrar: (item: Usuario) => {
         return new Promise((resolve: any) => {
-            storage.connectDb().then((db: any) => {
+            Storage.connectDb().then((db: any) => {
                 db.transaction((tx: any) => {
                     tx.executeSql(SqlGfin.insert_Usuario, [item.nome, item.email, item.senha, item.salt_senha, item.imagem])
                         .then(([tx, results]) => {
                             resolve(results);
                         });
                 }).then(() => {
-                    storage.desconnectDb(db);
+                    Storage.desconnectDb(db);
                 }).catch((error: any) => {
                     console.log("Error [registrar]: " + error)
                 });
@@ -33,7 +33,7 @@ const UsuarioRepository = {
     listar: () => {
         return new Promise((resolve: any) => {
             const lista = [];
-            storage.connectDb().then((db: any) => {
+            Storage.connectDb().then((db: any) => {
                 db.transaction((tx: any) => {
                     tx.executeSql(SqlGfin.selectAll_Usuario, [])
                         .then(([tx, results]) => {
@@ -45,7 +45,7 @@ const UsuarioRepository = {
                             resolve(lista);
                         });
                 }).then(() => {
-                    storage.desconnectDb(db);
+                    Storage.desconnectDb(db);
                 }).catch((error: any) => {
                     console.log("Error [listar]: " + error)
                 });
@@ -60,7 +60,7 @@ const UsuarioRepository = {
      */
     obterPorId: (id: any) => {
         return new Promise((resolve: any) => {
-            storage.connectDb().then((db: any) => {
+            Storage.connectDb().then((db: any) => {
                 db.transaction((tx: any) => {
                     tx.executeSql(SqlGfin.selectById_Usuario, [id]).then(([tx, results]) => {
                         if (results.rows.length > 0) {
@@ -70,7 +70,7 @@ const UsuarioRepository = {
                         }
                     });
                 }).then(() => {
-                    storage.desconnectDb(db);
+                    Storage.desconnectDb(db);
                 }).catch((error: any) => {
                     console.log("Error [obterPorId]: " + error)
                 });
@@ -86,13 +86,13 @@ const UsuarioRepository = {
      */
     alterarNome: (id: any, novo_nome: string) => {
         return new Promise((resolve: any) => {
-            storage.connectDb().then((db: any) => {
+            Storage.connectDb().then((db: any) => {
                 db.transaction((tx: any) => {
                     tx.executeSql(SqlGfin.update_NomeUsuario, [novo_nome, id]).then(([tx, results]) => {
                         resolve(results);
                     });
                 }).then(() => {
-                    storage.desconnectDb(db);
+                    Storage.desconnectDb(db);
                 }).catch((error: any) => {
                     console.log("Error [alterarNome]: " + error)
                 });
@@ -107,13 +107,13 @@ const UsuarioRepository = {
      */
     excluir: (id: any) => {
         return new Promise((resolve: any) => {
-            storage.connectDb().then((db: any) => {
+            Storage.connectDb().then((db: any) => {
                 db.transaction((tx: any) => {
                     tx.executeSql(SqlGfin.delete_Usuario, [id]).then(([tx, results]) => {
                         resolve(results);
                     });
                 }).then(() => {
-                    storage.desconnectDb(db);
+                    Storage.desconnectDb(db);
                 }).catch((error: any) => {
                     console.log("Error [excluir]: " + error)
                 });

@@ -19,6 +19,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ViewsName from '../constants/ViewsName';
 import repoUsuario from '../storage/repositores/UsuarioRepository';
 
+import Usuario from '../storage/models/UsuarioModel';
+
 const dataDropbox = [
   { label: 'janeiro/2024', value: '01/01/2024' },
   { label: 'fevereiro/2024', value: '01/02/2024' },
@@ -127,6 +129,17 @@ export default function Exemplo() {
         onChangeText={(text: string) => console.log(text)} />
 
         <Button label="Teste Conectar Banco" onClick={() => { testeDbUsuarios() }} />
+        
+        {
+          <FlatList>
+            listaUsuario.map((item:Usuario) => {
+              <Text>{item.id}</Text>
+              <Text>{item.nome}</Text>
+              <Text>{item.email}</Text>
+              <Text>{item.imagem}</Text>
+            })
+          </FlatList>
+        }
 
     </KeyboardAvoidingView>
   );
