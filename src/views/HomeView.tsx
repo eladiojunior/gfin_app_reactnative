@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import ViewBase from "./ViewBase";
 import ViewsName from "../constants/ViewsName";
 import Colors from "../constants/Colors";
 import Button from "../componentes/Button";
+import appStorage from '../storage/AppStorage';
+import ReposStorage from "../constants/ReposStorage";
+
 const HomeView = ({navigation}:any) => {
     const viewLogin = ViewsName.viewLogin;
     const viewCadastro = ViewsName.viewCadastro;
+    const viewDashboard = ViewsName.viewsDrawers;
+    useEffect(() => {
+        checkIfLoggedIn();
+    }, []);
+    const checkIfLoggedIn = async () => {
+        try {
+            appStorage.obter(ReposStorage.USUARIO_LOGADO, (usuarioLogado: any) => {
+                console.log('Logado: ' + usuarioLogado);
+                if (usuarioLogado !== null)
+                    navigation.navigate(viewDashboard);
+            });
+        } catch (error) {
+            console.log('Erro ao verificar autenticação:', error);
+        }
+    };
     return (
         <View style={styles.container}>
             <ViewBase>

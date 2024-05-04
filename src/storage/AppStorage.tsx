@@ -48,6 +48,26 @@ const Repository = {
         }
     },
 
+    /**
+     * Obter um objeto de um repositório.
+     * @param repo - Nome do repositório.
+     * @param callback - Metodo callback (obter:[]);
+     */
+    obter:async (repo:string, callback:any) => {
+        let nameRepository = "@gfin:" + repo;
+        try 
+        {
+            const json = await AsyncStorage.getItem(nameRepository);
+            let obj = (json ? JSON.parse(json) : null);
+            if (callback) 
+                callback(obj);
+        } catch (e) {
+            console.log(e);
+            if (callback)
+                callback({});
+        }
+    },
+
     removerTudo:async (repo:string) => {
         let nameRepository = "@gfin:" + repo;
         try 

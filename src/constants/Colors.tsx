@@ -53,6 +53,8 @@ export default {
 
   bgColorError: '#F80000',
   textColorError: '#FFFFFF',
+  borderColorError: '#000000',
+
   bgColorWarning: '#EAEB5E',
   textColorWarning: '#666804',
   bgColorNotice: '#13596F',

@@ -1,66 +1,55 @@
-import SQLite from 'react-native-sqlite-storage';
+import SQLite, { SQLiteDatabase, enablePromise, openDatabase } from 'react-native-sqlite-storage';
 import SqlGfin from '../constants/SqlGfin';
-SQLite.DEBUB(true);
-SQLite.enablePromise(true);
 
 const database_name = 'gfin.db';
+const database_location = 'default';
 const database_version = '1.0';
 const database_displayname = 'BD do Gerenciador Financeiro';
 const database_size = 200000; //Tamanho do banco de dados
 
+SQLite.enablePromise(true);
+
 const AppSQLiteStorage = {
 
-    /**
-     * Realiza uma conexão com o banco de dados da aplicação.
-     * @returns instância 'db' do banco de dados SQLite do GFin.
-     */
-    connectDb: () => {
-        let db;
-        return new Promise((resolve:any) => {
-            console.log('Checando a integridade do plugin...');
-            SQLite.echoTest().then(() => {
-                SQLite.openDatabase(database_name, database_version, database_displayname, database_size).then((DB:any) => {
-                    db = DB;
-                    db.executeSql(SqlGfin.selectVerified_Usuario).then(() => {
-                        console.log("Banco de dados está pronto... Verificação concluída!");
-                    }).catch(() => {
-                        console.log("Banco de dados não está pronto... Criar estrutura de dados.");
-                        db.transaction((tx: any) => {
-                            tx.executeSql(SqlGfin.create_Usuario);
-                        }).then(() => {
-                            console.log("Tabela: Tb_Usuarios criada com sucesso.");
-                        }).catch((error:any) => {
-                            console.log("Erro [transaction]: " + error);
-                        });
-                    });
-                    resolve(db);
-                }).catch((error:any) => {
-                    console.log("Erro [openDatabase]: " + error);
-                });
-            }).catch((error:any) => {
-                console.log("Erro [echoTest]: " + error);
+    createTablesDatabase: async (db: SQLiteDatabase) => {
+        try {
+            await db.executeSql(SqlGfin.create_Usuario);
+            await db.executeSql(SqlGfin.create_UsuarioLog);
+        } catch (error) {
+            console.error(error)
+            throw Error('Erro na criação da estrutura de tabelas.');
+        } finally {
+            AppSQLiteStorage.desconnectDatabase(db);
+        }
+    },
+    connectToDatabase: async () => {
+        return SQLite.openDatabase(
+            { name: database_name, location: database_location },
+            () => {
+                //console.log("Conexão realizada.");
+            },
+            (error) => {
+                console.log(error);
+                throw Error('Erro na conexão com o banco de dados.');
             });
-            AppSQLiteStorage.desconnectDb(db);
-        });
     },
 
     /**
      * Desconecta o banco de dados do GFin.
      * @param db - instância do banco de dados.
      */
-    desconnectDb: (db:any) => {
+    desconnectDatabase: (db: any) => {
         if (db) {
-            console.log("Fechar conexão com o banco de dados.");
-            db.close().then( (status:any) => {
-                console.log("Banco de dados desconectado!");
-            }).catch((error:any) => {
+            db.close().then((status: any) => {
+                //console.log("Desconexão realizada!");
+            }).catch((error: any) => {
                 console.log("Erro [close]: " + error);
             });
         } else {
             console.log("Não existe conexão aberta.");
         }
     },
-    
+
 
 }
 export default AppSQLiteStorage;

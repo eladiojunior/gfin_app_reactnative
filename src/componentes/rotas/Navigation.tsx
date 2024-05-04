@@ -19,13 +19,14 @@ import ReceitasView from '../../views/ReceitasView';
 import CustomDrawer from '../CustomDrawer';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Exemplo from '../../views/Exemplo';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 function DrawerNavigator() {
   return (
-    <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />}
+    <Drawer.Navigator drawerContent={props => <CustomDrawer { ...props} />}
       screenOptions={{
         drawerStyle: styles.drawerStyles,
         drawerType: 'slide',
@@ -65,7 +66,7 @@ function DrawerNavigator() {
           drawerLabel: "Configurações",
           drawerIcon: ({color}) => (<Ionicons name='settings-outline' size={22} color={color}/>)
         }} />
-      <Drawer.Screen name={ViewsName.viewSobreAplicacao} component={SobreAplicacaoView}
+      <Drawer.Screen name={ViewsName.viewSobreAplicacao} component={Exemplo}
         options={{
           drawerLabel: "Sobre a Aplicação",
           drawerIcon: ({color}) => (<Ionicons name='help-circle-outline' size={22} color={color}/>)

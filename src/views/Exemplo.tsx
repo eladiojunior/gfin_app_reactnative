@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
+  FlatList,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
+  TouchableHighlight,
   View,
 } from 'react-native';
 import Button from '../componentes/Button';
@@ -17,6 +20,7 @@ import { RadioBoxGroup, OrientationItens } from '../componentes/RadioBoxGroup';
 import ListaContas from '../componentes/app/ListaContas';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ViewsName from '../constants/ViewsName';
+
 import repoUsuario from '../storage/repositores/UsuarioRepository';
 
 import Usuario from '../storage/models/UsuarioModel';
@@ -50,29 +54,39 @@ const listaContas = [
 ];
 
 export default function Exemplo() {
-  const [listaUsuario, setListaUsuarios] = React.useState([]);
-  
-  const testeDbUsuarios = () => {
+  const [listaUsuario, setListaUsuarios] = useState([]);
 
-    console.log("-------------------------");
-    repoUsuario.listar().then(lista => {
-      setListaUsuarios(lista);
-    });
-    console.log(listaUsuario);
+  const registrarUsuario = async () => {
+    const usuario = new Usuario(0, 'Eladio Júnior', 'eladiojunior@gmail.com', '123456', '654321', null, null, null);
+    try {
+      await repoUsuario.registrar(usuario);
+      listarUsuarios();
+    } catch (error) {
+      console.log('Erro' + error);
+    };
 
-    //Registrar usuário
-    const usuario = new UsuarioModel(0, 'Eladio Júnior', 'eladiojunior@gmail.com', '123456', '654321', null, null);
-    repoUsuario.registrar(usuario);
-
-    console.log("-------------------------");
-    repoUsuario.listar().then(lista => {
-      setListaUsuarios(lista);
-    });
-    console.log(listaUsuario);
-
-    console.log("-------------------------");
-    
   };
+  const excluirUsuario = async (id: any) => {
+    try {
+      await repoUsuario.excluir(id);
+      listarUsuarios();
+    } catch (error) {
+      console.log('Erro' + error);
+    }
+  };
+  const listarUsuarios = async () => {
+    try {
+      const lista = await repoUsuario.listar();
+      console.log(lista?.length);
+      setListaUsuarios(lista);
+    } catch (error) {
+      console.log('Erro' + error);
+    }
+  };
+
+  useEffect(() => {
+    listarUsuarios();
+  }, [listarUsuarios]);
 
   return (
 
@@ -82,69 +96,71 @@ export default function Exemplo() {
 
       <Text style={styles.title}>Exemplos</Text>
 
-      <ListaContas height={150} data={listaContas} onClick={(item: any) => { console.log(item) }} />
+      <View style={styles.container_lista}>
+        <Text>{listaUsuario.length}</Text>
+        <ScrollView>
+          {listaUsuario.map((item: Usuario) => {
+            return (
+              <View key={item.id}>
+                <View style={styles.item_lista_linha}>
+                  <View style={[styles.item_lista_coluna, { width: '20%' }]}>
+                    <Text style={styles.item_lista_coluna_text}>{item.id}</Text>
+                  </View>
+                  <View style={[styles.item_lista_coluna, { width: '80%' }]}>
+                    <Text style={styles.item_lista_coluna_text}>{item.nome}</Text>
+                  </View>
+                </View>
+                <View style={styles.item_lista_linha}>
+                  <View style={[styles.item_lista_coluna, { width: '100%' }]}>
+                    <Text style={styles.item_lista_coluna_text}>{item.email}</Text>
+                  </View>
+                </View>
+                <View style={styles.item_lista_linha}>
+                  <View style={[styles.item_lista_coluna, { width: '40%' }]}>
+                    <Text style={styles.item_lista_coluna_text}>{item.dt_registro}</Text>
+                  </View>
+                  <View style={[styles.item_lista_coluna, { width: '40%' }]}>
+                    <Text style={styles.item_lista_coluna_text}>{item.dt_ultimo_login}</Text>
+                  </View>
+                  <View style={[styles.item_lista_coluna, { width: '20%' }]}>
+                    <TouchableHighlight onPress={() => { excluirUsuario(item.id) }}>
+                      <Text>REM</Text>
+                    </TouchableHighlight>
+                  </View>
+                </View>
+              </View>
+            );
+          })}
+        </ScrollView>
+      </View>
 
-      <CheckBox onSelected={(value: any) => console.log(value)} label="Teste" />
-
-      <RadioBoxGroup
-        data={dataRadio} labelField="text" valueField="id"
-        orientationItens={OrientationItens.Vertical} onSelected={(item: any) => console.log(item.id)}
-        valueItem="03" />
-
-      <TextBox
-        typeTextbox={TypesTextbox.Alfanumber}
-        placeHolder="Informe um texto"
-        autoComplete="name"
-        value="Text"
-        width={250}
-        onChangeText={(text: string) => console.log(text)} />
-
-      <TextBox
-        typeTextbox={TypesTextbox.Number}
-        placeHolder="0"
-        alingText={AlingsTextbox.Center}
-        value="0"
-        width={50}
-        onChangeText={(text: string) => console.log(text)} />
-
-      <TextBox
-        typeTextbox={TypesTextbox.Email}
-        placeHolder="Seu e-mail"
-        alingText={AlingsTextbox.Left}
-        width={250}
-        onChangeText={(text: string) => console.log(text)} />
-
-      <TextBox
-        typeTextbox={TypesTextbox.Password}
-        placeHolder="Sua senha"
-        alingText={AlingsTextbox.Left}
-        width={250}
-        onChangeText={(text: string) => console.log(text)} />
-
-      <TextBox
-        typeTextbox={TypesTextbox.Number}
-        placeHolder="Valor despesa"
-        alingText={AlingsTextbox.Right}
-        width={250}
-        onChangeText={(text: string) => console.log(text)} />
-
-        <Button label="Teste Conectar Banco" onClick={() => { testeDbUsuarios() }} />
-        
-        {
-          <FlatList>
-            listaUsuario.map((item:Usuario) => {
-              <Text>{item.id}</Text>
-              <Text>{item.nome}</Text>
-              <Text>{item.email}</Text>
-              <Text>{item.imagem}</Text>
-            })
-          </FlatList>
-        }
+      <Button label="Registrar Usuário" onClick={registrarUsuario} />
 
     </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
+  container_lista: {
+    flex: 1,
+    backgroundColor: Colors.bgColorLista,
+    borderWidth: 1,
+    borderColor: '#000000',
+    width: '100%'
+  },
+  item_lista_linha: {
+    flexDirection: 'row',
+    padding: 5,
+    marginBottom: 2,
+    borderRadius: 5,
+  },
+  item_lista_coluna: {
+    minWidth: 10,
+  },
+  item_lista_coluna_text: {
+    fontSize: 16,
+    color: Colors.textColorLista,
+  },
+
   container: {
     flex: 1,
     flexDirection: 'column',

@@ -3,10 +3,13 @@ import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import Colors from "../constants/Colors";
 
 const Button = (props: any) => {
+    const {
+        disabled = (props.disabled || false) //Se não informada deve ser ativo (disabled=false);
+    } = props;
     return (
         <View style={styles.container}>
-            <TouchableHighlight onPress={props.onClick}>
-                <Text style={styles.button}>{props.label}</Text>
+            <TouchableHighlight onPress={props.onClick} disabled={disabled} >
+                <Text style={[styles.button, { opacity: !disabled ? 1 : 0.5 }]}>{props.label}</Text>
             </TouchableHighlight>
         </View>
     );

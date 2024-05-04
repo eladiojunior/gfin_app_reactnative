@@ -12,65 +12,7 @@ const DashboardView = ({ navigation }: any) => {
             <ScrollView>
                 <View style={styles.content}>
                     <Text style={[styles.text, styles.title]}>Dashboard</Text>
-                    <Text style={[styles.text]}>
-                    DrawerNavigator reference
-DrawerNavigator(RouteConfigs, DrawerNavigatorConfig);
-
-RouteConfigs
-The route configs object is a mapping from route name to a route config, which tells the navigator what to present for that route, see example from StackNavigator.
-
-DrawerNavigatorConfig
-drawerWidth - Width of the drawer or a function returning it.
-drawerPosition - Options are left or right. Default is left position.
-contentComponent - Component used to render the content of the drawer, for example, navigation items. Receives the navigation prop for the drawer. Defaults to DrawerItems. For more information, see below.
-contentOptions - Configure the drawer content, see below.
-useNativeAnimations - Enable native animations. Default is true.
-drawerBackgroundColor - Use the Drawer background for some color. The Default is white.
-Several options get passed to the underlying router to modify navigation logic:
-
-initialRouteName - The routeName for the initial route.
-order - Array of routeNames which defines the order of the drawer items.
-paths - Provide a mapping of routeName to path config, which overrides the paths set in the routeConfigs.
-backBehavior - Should the back button cause switch to the initial route? If yes, set to initialRoute, otherwise none. Defaults to initialRoute behavior.
-DrawerNavigator reference
-DrawerNavigator(RouteConfigs, DrawerNavigatorConfig);
-
-RouteConfigs
-The route configs object is a mapping from route name to a route config, which tells the navigator what to present for that route, see example from StackNavigator.
-
-DrawerNavigatorConfig
-drawerWidth - Width of the drawer or a function returning it.
-drawerPosition - Options are left or right. Default is left position.
-contentComponent - Component used to render the content of the drawer, for example, navigation items. Receives the navigation prop for the drawer. Defaults to DrawerItems. For more information, see below.
-contentOptions - Configure the drawer content, see below.
-useNativeAnimations - Enable native animations. Default is true.
-drawerBackgroundColor - Use the Drawer background for some color. The Default is white.
-Several options get passed to the underlying router to modify navigation logic:
-
-initialRouteName - The routeName for the initial route.
-order - Array of routeNames which defines the order of the drawer items.
-paths - Provide a mapping of routeName to path config, which overrides the paths set in the routeConfigs.
-backBehavior - Should the back button cause switch to the initial route? If yes, set to initialRoute, otherwise none. Defaults to initialRoute behavior.
-DrawerNavigator reference
-DrawerNavigator(RouteConfigs, DrawerNavigatorConfig);
-
-RouteConfigs
-The route configs object is a mapping from route name to a route config, which tells the navigator what to present for that route, see example from StackNavigator.
-
-DrawerNavigatorConfig
-drawerWidth - Width of the drawer or a function returning it.
-drawerPosition - Options are left or right. Default is left position.
-contentComponent - Component used to render the content of the drawer, for example, navigation items. Receives the navigation prop for the drawer. Defaults to DrawerItems. For more information, see below.
-contentOptions - Configure the drawer content, see below.
-useNativeAnimations - Enable native animations. Default is true.
-drawerBackgroundColor - Use the Drawer background for some color. The Default is white.
-Several options get passed to the underlying router to modify navigation logic:
-
-initialRouteName - The routeName for the initial route.
-order - Array of routeNames which defines the order of the drawer items.
-paths - Provide a mapping of routeName to path config, which overrides the paths set in the routeConfigs.
-backBehavior - Should the back button cause switch to the initial route? If yes, set to initialRoute, otherwise none. Defaults to initialRoute behavior.
-                    </Text>
+                    <Text style={[styles.text]}>Dashboard</Text>
                 </View>
             </ScrollView>
             <View style={styles.button_flutuante}>
