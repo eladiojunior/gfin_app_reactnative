@@ -60,4 +60,7 @@ export default {
   bgColorNotice: '#13596F',
   textColorNotice: '#FFFFFF',
   
+  textColorSobreApp: '#FFFFFF',
+  borderColorPix: '#13596F',
+  
 };

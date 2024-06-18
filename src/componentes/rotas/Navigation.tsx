@@ -66,7 +66,7 @@ function DrawerNavigator() {
           drawerLabel: "Configurações",
           drawerIcon: ({color}) => (<Ionicons name='settings-outline' size={22} color={color}/>)
         }} />
-      <Drawer.Screen name={ViewsName.viewSobreAplicacao} component={Exemplo}
+      <Drawer.Screen name={ViewsName.viewSobreAplicacao} component={SobreAplicacaoView}
         options={{
           drawerLabel: "Sobre a Aplicação",
           drawerIcon: ({color}) => (<Ionicons name='help-circle-outline' size={22} color={color}/>)

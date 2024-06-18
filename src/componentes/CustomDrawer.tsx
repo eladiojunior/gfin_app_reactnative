@@ -10,7 +10,6 @@ import ReposStorage from '../constants/ReposStorage';
 import ViewsName from '../constants/ViewsName';
 
 const CustomDrawer = (props: any) => {
-    const [idUsuario, setIdUsuario] = React.useState('');
     const [nomeUsuario, setNomeUsuario] = React.useState('');
     const [emailUsuario, setEmailUsuario] = React.useState('');
     const [dataUltimoAcessoUsuario, setDataUltimoAcessoUsuario] = React.useState('');
@@ -24,11 +23,9 @@ const CustomDrawer = (props: any) => {
         try {
             appStorage.obter(ReposStorage.USUARIO_LOGADO, (usuario: any) => {
                 if (usuario!=null) {
-                    console.log(usuario);
-                    setIdUsuario(usuario.id);
-                    setEmailUsuario(usuario.email);
-                    setNomeUsuario(usuario.nome);
-                    setDataUltimoAcessoUsuario(usuario.dataUltimoAcesso);
+                    setEmailUsuario(usuario[0].email);
+                    setNomeUsuario(usuario[0].nome);
+                    setDataUltimoAcessoUsuario(usuario[0].dh_ultimo_login);
                 }
             });
         } catch (error) {
@@ -41,7 +38,13 @@ const CustomDrawer = (props: any) => {
             <DrawerContentScrollView {...props}>
                 <View style={styles.drawerUser}>
                     <Image source={require('../assets/images/img_usuario.png')} style={styles.drawerUserImage} />
-                    <Text style={styles.drawerUserName}>{nomeUsuario}</Text>
+                    <View style={styles.drawerUserInfo}>
+                        <Text style={styles.drawerUserName}>{nomeUsuario}</Text>
+                        <View style={styles.drawerUserDetails}>
+                            <Text style={styles.drawerUserEmail}>{emailUsuario}</Text>
+                            <Text style={styles.drawerUserLastAccess}>{dataUltimoAcessoUsuario}</Text>
+                        </View>
+                    </View>
                 </View>
                 <View style={styles.drawerItens}>
                     <DrawerItemList {...props} />
@@ -54,7 +57,7 @@ const CustomDrawer = (props: any) => {
                     props.navigation.navigate(viewLogin);
                 }} style={styles.drawerFooterButton}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Ionicons name='exit-outline' size={22} />
+                        <Ionicons style={styles.drawerFooterIcon} name='exit-outline' size={22} />
                         <Text style={styles.drawerFooterButtonText}>Sair da aplicação</Text>
                     </View>
                 </TouchableOpacity>
@@ -70,18 +73,34 @@ const styles = StyleSheet.create({
         flex: 1
     },
     drawerUser: {
+        flexDirection: 'row',
         backgroundColor: Colors.bgColorDrawerUser,
-        padding: 20
+        padding: 15
     },
     drawerUserImage: {
         height: 60,
         width: 60,
-        borderRadius: 40,
-        marginBottom: 10
+        borderRadius: 25,
     },
     drawerUserName: {
         color: Colors.textColorDrawerUser,
-        fontSize: 16
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    drawerUserInfo: {
+        flex: 1,
+        marginLeft: 10,
+    },
+    drawerUserDetails: {
+        marginTop: 4,
+    },
+    drawerUserEmail: {
+        fontSize: 12,
+        color: Colors.textColorDrawerUser,
+    },
+    drawerUserLastAccess: {
+        fontSize: 12,
+        color: Colors.textColorDrawerUser,
     },
     drawerItens: {
         flex: 1,
@@ -98,6 +117,9 @@ const styles = StyleSheet.create({
     drawerFooterButtonText: {
         fontSize: 16,
         marginLeft: 5,
+        color: Colors.textColorDrawerButton,
+    },
+    drawerFooterIcon: {
         color: Colors.textColorDrawerButton,
     }
 });
