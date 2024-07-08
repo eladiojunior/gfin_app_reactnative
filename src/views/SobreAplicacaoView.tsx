@@ -24,6 +24,7 @@ const SobreAplicacaoView = ({ navigation }: any) => {
                     <Image source={require('../assets/images/logo_app.png')} style={styles.logoApp} />
                     <Text style={[styles.text, styles.title]}>Versão {Config.labelVersaoApp}</Text>
                     <Text style={styles.text}>{Config.labelSobreApp}</Text>
+                    <Text style={[styles.text, styles.subtitle]}>Para ajudar o desenvolvedor é só fazer um PIX... qualquer valor ;)</Text>
                     <View>
                         <Image source={require('../assets/images/img_pix_app.png')} style={styles.pixApp} />
                         <Button label="Copiar ou Compartilhar PIX" onClick={sharePixCode}></Button>
@@ -64,6 +65,11 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20,
+        fontWeight: "bold",
+        color: Colors.textColorTitulo
+    },
+    subtitle: {
+        fontSize: 14,
         fontWeight: "bold",
         color: Colors.textColorTitulo
     },
