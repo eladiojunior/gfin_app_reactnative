@@ -44,12 +44,21 @@ export default {
   textColorRadiobox: '#FFFFFF',
 
   textColorLista: '#000000',
-  borderColorItemLista: '#000000',
   bgColorLista: '#168CA6',
   bgColorDespesa: '#EFCBCB',
   textColorDespesa: '#000000',
   bgColorReceita: '#BBE5F2',
   textColorReceita: '#000000',
+  
+  borderColorCardConta: '#13596F',
+  bgColorCardConta: '#FFFFFF',
+  textColorCardConta: 'red',
+
+  borderColorDespesa: '#cc0000',
+  borderColorReceita: '#0b5394',
+
+  bgColorContaLiquidada: '#53C654',
+  bgColorContaVencida: '#D61A1F',
 
   bgColorError: '#F80000',
   textColorError: '#FFFFFF',

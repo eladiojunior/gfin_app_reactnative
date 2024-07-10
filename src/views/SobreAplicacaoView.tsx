@@ -8,7 +8,7 @@ const SobreAplicacaoView = ({ navigation }: any) => {
     const sharePixCode = async () => {
         try {
           await Share.share({
-            message: `Meu código PIX é: ${Config.pixCodeApp}`,
+            message: `${Config.pixCodeApp}`,
           });
         } catch (error) {
           Alert.alert('Erro', 'Ocorreu um erro ao tentar compartilhar o código PIX.');
@@ -24,7 +24,7 @@ const SobreAplicacaoView = ({ navigation }: any) => {
                     <Image source={require('../assets/images/logo_app.png')} style={styles.logoApp} />
                     <Text style={[styles.text, styles.title]}>Versão {Config.labelVersaoApp}</Text>
                     <Text style={styles.text}>{Config.labelSobreApp}</Text>
-                    <Text style={[styles.text, styles.subtitle]}>Para ajudar o desenvolvedor é só fazer um PIX... qualquer valor ;)</Text>
+                    <Text style={[styles.text, styles.subtitle]}>Para ajudar o desenvolvedor é só fazer um PIX... qualquer valor já ajuda ;)</Text>
                     <View>
                         <Image source={require('../assets/images/img_pix_app.png')} style={styles.pixApp} />
                         <Button label="Copiar ou Compartilhar PIX" onClick={sharePixCode}></Button>
