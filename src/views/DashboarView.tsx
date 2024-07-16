@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import Colors from '../constants/Colors';
 import Button from '../componentes/Button';
 import CardConta from '../componentes/app/CardConta';
+import CurrencyBox from '../componentes/CurrencyBox';
+import { TextBox, TypesTextbox } from '../componentes/TextBox';
+import DateBox from '../componentes/DateBox';
 const listaContas = [
     {
         id: '1',
@@ -46,6 +49,8 @@ const listaContas = [
     }
 ]
 const DashboardView = ({ navigation }: any) => {
+    const [valor, setValor] = useState(0);
+    const [data, setData] = useState('');
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -56,6 +61,8 @@ const DashboardView = ({ navigation }: any) => {
                     {listaContas.map(i => {
                         return <CardConta key={i.id} data={i}></CardConta>
                     })}
+                    <CurrencyBox value={valor} onChangeValor={setValor}/>
+                    <DateBox valor={data} onChangeDate={setData}/>
                 </View>
             </ScrollView>
             <View style={styles.button_flutuante}>
