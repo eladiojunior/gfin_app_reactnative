@@ -8,7 +8,6 @@ E-mail: eladiojunior@gmail.com
 
 `` Se gostou do projeto... pode fazer um PIX, chave é meu e-mail. ;) ``
 
-
 ## Compilando o projeto
 
 Para rodar localmente precisa:
@@ -22,8 +21,12 @@ Para rodar localmente precisa:
 Para gerar um pacote de publicação:
 - Windows
     - ``/> cd android``
-    - ``/> ./gradlew assembleRelease`` //APK na pasta: android/app/build/outputs/apk/release/
+    - ``/> cd app ``
+    - ``/> keytool -genkey -v -keystore gfin-release-key.keystore -alias gfin-key-alias -keyalg RSA -keysize 2048 -validity 10000``
+    - Informe a senha: **gfin2024**
+    - ``/> cd .. `` //Retornar para pasta android;
+    - ``/> ./gradlew assembleRelease`` //APK na pasta: android/app/build/outputs/apk/release/;
 
 - iOS
     - /> ``cd ios``
-    - /> ``.build_app_ios.sh`` //script customizado
+    - /> ``.build_app_ios.sh`` //script customizado;
