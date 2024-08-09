@@ -1,207 +1,130 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { FlatList, I18nManager, Image, Modal, StyleSheet, Text, TouchableHighlight, TouchableWithoutFeedback, View } from "react-native";
+import React, { useState } from "react";
+import { FlatList, I18nManager, Image, Modal, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import Colors from "../constants/Colors";
+import { TouchableOpacity, TouchableWithoutFeedback } from "react-native-gesture-handler";
+import Button from "./Button";
 
 const img_down = require('../assets/images/down.png');
-const _ = require('lodash');
 
 const Dropdown = (props: any) => {
   const {
-    data = [],
-    labelField = "label",
-    valueField = "value",
-    valueItem = "",
+    items = [
+      { label: 'Item 01', value: '01' }, { label: 'Item 02', value: '02' }, { label: 'Item 03', value: '03' }, { label: 'Item 04', value: '04' }, { label: 'Item 05', value: '05' }, 
+      { label: 'Item 06', value: '06' }, { label: 'Item 07', value: '07' }, { label: 'Item 08', value: '08' }, { label: 'Item 09', value: '09' }, { label: 'Item 10', value: '10' }, 
+      { label: 'Item 11', value: '11' }, { label: 'Item 12', value: '12' }, { label: 'Item 13', value: '13' }, { label: 'Item 14', value: '14' }, { label: 'Item 15', value: '15' }, 
+      { label: 'Item 16', value: '16' }, { label: 'Item 17', value: '17' }, { label: 'Item 18', value: '18' }, { label: 'Item 19', value: '19' }, { label: 'Item 20', value: '20' }, 
+      { label: 'Item 21', value: '21' }, { label: 'Item 22', value: '22' }, { label: 'Item 23', value: '23' }, { label: 'Item 24', value: '24' }, { label: 'Item 25', value: '25' }],
+    selectedItem = null,
     placeholder = 'Selecione...',
     width = 200,
     height = 35,
-    onChange = null,
-    dropdownPosition = true,
-    activeColor = Colors.bgColorDropbox,
-    renderItem,
-    showsVerticalScrollIndicator = true,
-    disable = false,
+    onChangeItem = null,
   } = props;
 
-  // States
-  const [visible, setVisible] = useState<boolean>(false);
-  const [currentValue, setCurrentValue] = useState<any>(null);
-  const [listData, setListData] = useState<any[]>(data);
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [currentValue, setCurrentValue] = useState(null);
 
-  const ref = useRef<View>(null);
-  const refList = useRef<FlatList>(null);
-
-  const getValue = useCallback(() => {
-    const defaultValue = typeof valueItem === 'object' ? _.get(valueItem, valueField) : valueItem;
-    const getItem = data.filter((item: any) =>
-      _.isEqual(defaultValue, _.get(item, valueField))
-    );
-    if (getItem.length > 0) {
-      setCurrentValue(getItem[0]);
-    } else {
-      setCurrentValue(null);
-    }
-  }, [data, valueItem, valueField]);
-
-  useEffect(() => {
-    getValue();
-  }, [valueItem, data, getValue]);
-
-  const scrollIndex = useCallback(() => {
-    if (data.length > 0 && listData.length === data.length) {
-      setTimeout(() => {
-        if (refList && refList?.current) {
-          const defaultValue = typeof valueItem === 'object' ? _.get(valueItem, valueField) : valueItem;
-          const index = _.findIndex(listData, (item: any) =>
-            _.isEqual(defaultValue, _.get(item, valueField))
-          );
-          if (index > -1 && index <= listData.length - 1) {
-            refList?.current?.scrollToIndex({
-              index: index,
-              animated: false,
-            });
-          }
-        }
-      }, 200);
-    }
-  }, [data.length, listData, valueItem, valueField]);
-
-  const showOrClose = useCallback(() => {
-    setVisible(!visible);
-    setListData(data);
-    scrollIndex();
-  }, [visible, data, scrollIndex]);
-
-  const eventClose = useCallback(() => {
-    if (!disable) {
-      setVisible(false);
-    }
-  }, [disable]);
-
-  const _renderDropdown = () => {
-    const isSelected = currentValue && _.get(currentValue, valueField);
+  const _renderContentModal = () => {
     return (
-      <TouchableWithoutFeedback onPress={showOrClose}>
-        <View style={StyleSheet.flatten([styles.dropdown, { minWidth: width, height: height },])}>
-          <Text style={styles.textItem}>
-            {isSelected !== null ? _.get(currentValue, labelField) : placeholder}
-          </Text>
-          <Image source={img_down} style={styles.icon} />
+      <View style={styles.container}>
+        <View style={{ flex: 1 }}>
+          {_renderListItens()}
         </View>
-      </TouchableWithoutFeedback>
+        <View style={styles.content}>
+          <Button label="Fechar" onClick={() => setModalVisible(false)}></Button>
+        </View>
+      </View>
     );
   };
 
-  const _renderItem = useCallback(
-    ({ item, index }: { item: any; index: number }) => {
-      const isSelected = currentValue && _.get(currentValue, valueField);
-      const selected = _.isEqual(_.get(item, valueField), isSelected);
-      _.assign(item, { _index: index });
-      return (
-        <TouchableHighlight key={index.toString()} underlayColor={activeColor} onPress={() => onSelect(item)}>
-          <View style={StyleSheet.flatten([selected && styles.textItemSelected])}>
-            {renderItem ? (renderItem(item, selected)) :
-              (
-                <View style={styles.item}>
-                  <Text style={StyleSheet.flatten([selected ? styles.textItemSelected : styles.textItem])}>
-                    {_.get(item, labelField)}
-                  </Text>
-                </View>
-              )}
-          </View>
-        </TouchableHighlight>
-      );
-    },
-    [activeColor, currentValue, labelField, renderItem, valueField]
-  );
-
-  const _renderList = useCallback(
-    (isTopPosition: boolean) => {
-      const _renderListHelper = () => {
-        return (
-          <FlatList
-            keyboardShouldPersistTaps="handled"
-            ref={refList}
-            onScrollToIndexFailed={scrollIndex}
-            data={listData}
-            inverted={isTopPosition}
-            renderItem={_renderItem}
-            keyExtractor={(_item, index) => index.toString()}
-            showsVerticalScrollIndicator={showsVerticalScrollIndicator}
-          />
-        );
-      };
-
-      return (
-        <TouchableWithoutFeedback>
-          <View style={styles.flexShrink}>
-            {_renderListHelper()}
-          </View>
-        </TouchableWithoutFeedback>
-      );
-    }, [_renderItem, listData, scrollIndex, showsVerticalScrollIndicator,]
-  );
-
-  const onSelect = useCallback(
-    (item: any) => {
-      setCurrentValue(item);
-      onChange(item);
-      eventClose();
-    },
-    [eventClose, onChange]
-  );
-
-  const _renderModal = useCallback(() => {
-
-    if (!visible) {
-      return null;
-    }
-
-    const top = 50; 
-    const bottom = 20;
-
-    const onAutoPosition = () => {
-      return bottom < 100;
-    };
-
-    const isTopPosition =
-      dropdownPosition === 'auto' ? onAutoPosition() : dropdownPosition === 'top';
-
-    let extendHeight = !isTopPosition ? top : bottom;
-
+  const _renderListItens = () => {
+    if (!isModalVisible) return;
     return (
-      <Modal
-        transparent
-        statusBarTranslucent
-        visible={visible}
-        supportedOrientations={['landscape', 'portrait']}
-        onRequestClose={showOrClose}>
-        <TouchableWithoutFeedback onPress={showOrClose}>
-          <View style={StyleSheet.flatten([styles.modal])}>
-            <View style={StyleSheet.flatten([styles.modal, !isTopPosition ? { paddingTop: extendHeight } : { justifyContent: 'flex-end', paddingBottom: extendHeight, }])}>
-                {_renderList(isTopPosition)}
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
+      <View>
+        <ScrollView>
+          {items.map((item: any) => { return (_renderItem(item)); })}
+        </ScrollView>
+      </View>
     );
+  }
 
-  }, [visible, dropdownPosition, showOrClose, _renderList,]);
+  const _renderItem = (item: any) => {
+    const isSelected = (currentValue === item.value);
+    return (
+      <TouchableOpacity key={item.value} style={{ zIndex: 999 }} onPress={() => _selectItem(item)}>
+        <View style={StyleSheet.flatten([isSelected && styles.textItemSelected])}>
+          <View style={styles.item}>
+            <Text style={StyleSheet.flatten([isSelected ? styles.textItemSelected : styles.textItem])}>
+              {item.label}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  const _selectItem = (item: any) => {
+    console.log(item);
+    setCurrentValue(item.value);
+    onChangeItem(item);
+    setModalVisible(false);
+  };
 
   return (
-    <View style={styles.main} ref={ref}>
-      {_renderDropdown()}
-      {_renderModal()}
+    <View>
+      <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <View style={StyleSheet.flatten([styles.dropdown, { minWidth: width, height: height },])}>
+          <Text style={styles.textItem}>
+            {selectedItem !== null ? selectedItem.label : placeholder}
+          </Text>
+          <Image source={img_down} style={styles.icon} />
+        </View>
+      </TouchableOpacity>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}>
+        {_renderContentModal()}
+      </Modal>
     </View>
   );
 
 };
 
 const styles = StyleSheet.create({
-  main: {
-    justifyContent: 'center',
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-between",
+    backgroundColor: '#fff'
   },
-  flexShrink: {
-    flexShrink: 1,
+  content: {
+    marginVertical: 20,
+    marginLeft: 10,
+    marginRight: 10
+  },
+  modalContent: {
+    width: '80%',
+    height: '50%',
+    backgroundColor: Colors.bgColorDropbox,
+    borderRadius: 5,
+    padding: 5,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalLista: {
+    width: '100%',
   },
   dropdown: {
     flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
@@ -212,13 +135,13 @@ const styles = StyleSheet.create({
   },
   textItem: {
     flex: 1,
-    fontSize: 18,
+    fontSize: 16,
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
     color: Colors.textColorDropbox,
   },
   textItemSelected: {
     flex: 1,
-    fontSize: 18,
+    fontSize: 16,
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
     color: Colors.textColorDropboxSelected,
     backgroundColor: Colors.bgColorDropboxSelected
@@ -231,14 +154,6 @@ const styles = StyleSheet.create({
     height: 20,
     tintColor: Colors.textColorDropbox
   },
-  modal: {
-    flex: 1,
-    backgroundColor: Colors.bgColorDropbox
-  },
-  fullScreen: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   item: {
     padding: 10,
     flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
@@ -247,6 +162,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#cecece'
   },
-
 });
 export default Dropdown;

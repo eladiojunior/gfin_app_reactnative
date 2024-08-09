@@ -9,22 +9,24 @@ const DateBox = (props: any) => {
     } = props;
 
     const formatDate = (value: string) => {
-        if (value.length <= 2) return value;
-        if (value.length <= 4) return `${value.slice(0, 2)}/${value.slice(2)}`;
-        return `${value.slice(0, 2)}/${value.slice(2, 4)}/${value.slice(4)}`;
+        value = value.replace(/[^0-9]/g, '');
+        const tam = value.length;
+        if (tam > 2 && tam <= 4)
+            value = `${value.slice(0, 2)}/${value.slice(2)}`;
+        else if (tam > 4)
+            value = `${value.slice(0, 2)}/${value.slice(2, 4)}/${value.slice(4)}`;
+        return value;
     };
 
     const handleChange = (value: string) => {
-        const dateValue = value.replace(/[^0-9]/g, '');
-        console.log(dateValue);
-        const formattedDate = formatDate(dateValue);
-        setCurrentValue(formattedDate);
+        value = formatDate(value);
+        setCurrentValue(value);
         if (props.onChangeDate) {
-            props.onChangeDate(formattedDate);
+            props.onChangeDate(value);
         }
     };
     
-    const [currentValue, setCurrentValue] = useState(formatDate(value));
+    const [currentValue, setCurrentValue] = useState('');
 
     return (
         <TextBox 

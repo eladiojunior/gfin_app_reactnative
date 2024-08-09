@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Colors from "../../constants/Colors";
 import CurrencyText from "../CurrencyText";
 
@@ -47,20 +47,13 @@ const CardConta = (props: any) => {
         return (tipo === 'R');
     };
 
-    const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat('pt-BR', {
-          style: 'currency',
-          currency: 'BRL',
-        }).format(value);
-      };
-
     const _renderCardConta = (item: any) => {
         return (
             <TouchableOpacity onPress={() => onSelectedItem(item)}>
                 <View style={[styles.area_conta, isDespesa(item.idTipo) ? styles.area_conta_d : styles.area_conta_r]}>
                     <Text>{tipoConta(item.idTipo)}: {item.descricaoNatureza}</Text>
                     <Text>{item.descricaoConta}</Text>
-                    <View style={[styles.marcador_conta, item.hasLiquidada ? styles.marcador_conta_liquidada : (item.hasVencida ? styles.marcador_conta_vencida : null)]}></View>
+                    <View style={[styles.marcador_conta, (item.hasLiquidada ? styles.marcador_conta_liquidada : (item.hasVencida ? styles.marcador_conta_vencida : null))]}></View>
                     <View style={styles.area_data_valor_conta}>
                         <Text>Data: {item.dataConta}</Text>
                         <CurrencyText value={item.valorConta}></CurrencyText>
@@ -105,7 +98,7 @@ const styles = StyleSheet.create({
     marcador_conta: {
         width: 15,
         height: 15,
-        borderRadius: 15,
+        borderRadius: 10,
         position: "absolute",
         top: 5,
         right: 5

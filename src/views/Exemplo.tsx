@@ -1,29 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-  FlatList,
-  KeyboardAvoidingView,
-  Platform,
-  SafeAreaView,
-  ScrollView,
+  Modal,
+  Pressable,
   StyleSheet,
   Text,
-  TextInput,
-  TouchableHighlight,
   View,
 } from 'react-native';
-import Button from '../componentes/Button';
-import Colors from '../constants/Colors';
-import Dropdown from '../componentes/Dropdown';
-import { AlingsTextbox, TextBox, TypesTextbox } from '../componentes/TextBox';
-import CheckBox from '../componentes/CheckBox';
-import { RadioBoxGroup, OrientationItens } from '../componentes/RadioBoxGroup';
-import ListaContas from '../componentes/app/ListaContas';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import ViewsName from '../constants/ViewsName';
-
-import repoUsuario from '../storage/repositores/UsuarioRepository';
-
-import Usuario from '../storage/models/UsuarioModel';
 
 const dataDropbox = [
   { label: 'janeiro/2024', value: '01/01/2024' },
@@ -54,125 +36,76 @@ const listaContas = [
 ];
 
 export default function Exemplo() {
-  const [listaUsuario, setListaUsuarios] = useState([]);
-
-  const registrarUsuario = async () => {
-    const usuario = new Usuario(0, 'Eladio Júnior', 'eladiojunior@gmail.com', '123456', '654321', null, null, null);
-    try {
-      await repoUsuario.registrar(usuario);
-      listarUsuarios();
-    } catch (error) {
-      console.log('Erro' + error);
-    };
-
-  };
-  const excluirUsuario = async (id: any) => {
-    try {
-      await repoUsuario.excluir(id);
-      listarUsuarios();
-    } catch (error) {
-      console.log('Erro' + error);
-    }
-  };
-  const listarUsuarios = async () => {
-    try {
-      const lista = await repoUsuario.listar();
-      console.log(lista?.length);
-      setListaUsuarios(lista);
-    } catch (error) {
-      console.log('Erro' + error);
-    }
-  };
-
-  useEffect(() => {
-    listarUsuarios();
-  }, [listarUsuarios]);
-
+  const [modalVisible, setModalVisible] = useState(false);
   return (
-
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}>
-
-      <Text style={styles.title}>Exemplos</Text>
-
-      <View style={styles.container_lista}>
-        <Text>{listaUsuario.length}</Text>
-        <ScrollView>
-          {listaUsuario.map((item: Usuario) => {
-            return (
-              <View key={item.id}>
-                <View style={styles.item_lista_linha}>
-                  <View style={[styles.item_lista_coluna, { width: '20%' }]}>
-                    <Text style={styles.item_lista_coluna_text}>{item.id}</Text>
-                  </View>
-                  <View style={[styles.item_lista_coluna, { width: '80%' }]}>
-                    <Text style={styles.item_lista_coluna_text}>{item.nome}</Text>
-                  </View>
-                </View>
-                <View style={styles.item_lista_linha}>
-                  <View style={[styles.item_lista_coluna, { width: '100%' }]}>
-                    <Text style={styles.item_lista_coluna_text}>{item.email}</Text>
-                  </View>
-                </View>
-                <View style={styles.item_lista_linha}>
-                  <View style={[styles.item_lista_coluna, { width: '40%' }]}>
-                    <Text style={styles.item_lista_coluna_text}>{item.dt_registro}</Text>
-                  </View>
-                  <View style={[styles.item_lista_coluna, { width: '40%' }]}>
-                    <Text style={styles.item_lista_coluna_text}>{item.dt_ultimo_login}</Text>
-                  </View>
-                  <View style={[styles.item_lista_coluna, { width: '20%' }]}>
-                    <TouchableHighlight onPress={() => { excluirUsuario(item.id) }}>
-                      <Text>REM</Text>
-                    </TouchableHighlight>
-                  </View>
-                </View>
-              </View>
-            );
-          })}
-        </ScrollView>
-      </View>
-
-      <Button label="Registrar Usuário" onClick={registrarUsuario} />
-
-    </KeyboardAvoidingView>
+    <View style={styles.centeredView}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Hello World!</Text>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+      <Pressable
+        style={[styles.button, styles.buttonOpen]}
+        onPress={() => setModalVisible(true)}>
+        <Text style={styles.textStyle}>Show Modal</Text>
+      </Pressable>
+    </View>
   );
-}
+};
+
 const styles = StyleSheet.create({
-  container_lista: {
+  centeredView: {
     flex: 1,
-    backgroundColor: Colors.bgColorLista,
-    borderWidth: 1,
-    borderColor: '#000000',
-    width: '100%'
-  },
-  item_lista_linha: {
-    flexDirection: 'row',
-    padding: 5,
-    marginBottom: 2,
-    borderRadius: 5,
-  },
-  item_lista_coluna: {
-    minWidth: 10,
-  },
-  item_lista_coluna_text: {
-    fontSize: 16,
-    color: Colors.textColorLista,
-  },
-
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: Colors.bgColorApp,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
   },
-  title: {
-    fontSize: 25,
-    color: '#FFFFFF'
+  modalView: {
+    margin: 10,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 10,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
-  input: {
-
-  }
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
 });

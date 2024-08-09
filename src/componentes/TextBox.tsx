@@ -41,11 +41,14 @@ const TextBox = (props: any) => {
         value = checkValue(props.value),
         alingText = AlingsTextbox.Left,
         width = "100%",
-        style = styles.input
+        style = styles.input,
+        maxLength = (props.maxLength || undefined)
     } = props;
 
     const onChangeText = (value: string) => {
-        if (props.onChangeText) {
+        if (props.onChangeText && 
+           (maxLength === undefined || value.length <= maxLength))
+        {
             props.onChangeText(value);
         }
     };
@@ -69,6 +72,7 @@ const TextBox = (props: any) => {
                 placeholder={props.placeHolder}
                 autoComplete={autoComplete}
                 defaultValue={currentValue}
+                maxLength={maxLength}
                 onChangeText={onChangeText}/>
         </View>
     );

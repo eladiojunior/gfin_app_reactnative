@@ -6,6 +6,11 @@ import CardConta from '../componentes/app/CardConta';
 import CurrencyBox from '../componentes/CurrencyBox';
 import { TextBox, TypesTextbox } from '../componentes/TextBox';
 import DateBox from '../componentes/DateBox';
+import CheckBox from '../componentes/CheckBox';
+import { RadioBoxGroup } from '../componentes/RadioBoxGroup';
+import Dropdown from '../componentes/Dropdown';
+import Exemplo from './Exemplo';
+
 const listaContas = [
     {
         id: '1',
@@ -34,7 +39,7 @@ const listaContas = [
         descricaoConta: 'Conta de Luz 06.2024',
         dataConta: '11/07/2024',
         valorConta: 480.00,
-        hasLiquidada: false,
+        hasLiquidada: true,
         hasVencida: false
     },
     {
@@ -45,12 +50,13 @@ const listaContas = [
         dataConta: '07/07/2024',
         valorConta: 1250.00,
         hasLiquidada: false,
-        hasVencida: false
+        hasVencida: true
     }
 ]
 const DashboardView = ({ navigation }: any) => {
     const [valor, setValor] = useState(0);
     const [data, setData] = useState('');
+    const [selectedItem, setSelectedItem] = useState(null);
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -63,6 +69,11 @@ const DashboardView = ({ navigation }: any) => {
                     })}
                     <CurrencyBox value={valor} onChangeValor={setValor}/>
                     <DateBox valor={data} onChangeDate={setData}/>
+                    <CheckBox/>
+                    <RadioBoxGroup/>
+                    <Dropdown 
+                        selectedItem={selectedItem}
+                        onChangeItem={(item:any) => setSelectedItem(item)}/>
                 </View>
             </ScrollView>
             <View style={styles.button_flutuante}>
