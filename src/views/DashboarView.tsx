@@ -26,7 +26,7 @@ const listaContas = [
         id: '2',
         idTipo: 'R',
         descricaoNatureza: 'Salários',
-        descricaoConta: 'Salário da CASSI',
+        descricaoConta: 'Salário da Mensal',
         dataConta: '08/07/2024',
         valorConta: 16001.01,
         hasLiquidada: false,

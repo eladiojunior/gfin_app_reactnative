@@ -32,7 +32,7 @@ const listaContas = [
   { id: 3, descricao: 'Mensalidade UBT', valor: 350.00, tipo: 'D' },
   { id: 4, descricao: 'Fatura da IO', valor: 352.88, tipo: 'd' },
   { id: 5, descricao: 'Boleto do Condomínio 01/2024', valor: 1350.00, tipo: 'D' },
-  { id: 6, descricao: 'Salario CASSI', valor: 15252.91, tipo: 'r' },
+  { id: 6, descricao: 'Salario Mensal', valor: 15252.91, tipo: 'r' },
 ];
 
 export default function Exemplo() {
